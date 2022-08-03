@@ -97,8 +97,10 @@
 
                                 <div class="dropdown-toggle" data-toggle="dropdown">
                                     {{--ảnh đại diện--}}
-{{--                                    <img src="\template\files\assets\images\User_icon_1" class="img-radius" alt="User-Profile-Image">--}}
+                                    <img src="/avatar_upload/{{Auth::user()->avatar}}" class="img-radius" alt="User-Profile-Image">
+{{--                                    <span>{{Auth::guard('account')->user()->fullName}}</span>--}}
                                     <span>{{Auth::user()->name}}</span>
+{{--                                    <span>{{Auth::guard('account')->user()->fullName}}</span>--}}
                                     <i class="feather icon-chevron-down"></i>
                                 </div>
                                 <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">

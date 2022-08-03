@@ -58,7 +58,7 @@
                                 </a>
                             </li>
                             <li class="active">
-                                <a href="<?php echo e(route('accounts.index')); ?>">
+                                <a href="<?php echo e(route('users.index')); ?>">
                                     <span class="pcoded-mtext">Thêm Thành viên</span>
                                 </a>
                             </li>

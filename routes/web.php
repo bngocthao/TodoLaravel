@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Artisan;
-
+use App\Http\Controllers\CheckLoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,10 +29,10 @@ Route::get('/clear-cache', function() {
     return 'Clear thành công';
 });
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
+//
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 
 // Resource Controller
@@ -41,12 +41,13 @@ Route::resource('tasks',TaskController::class)->middleware(['auth']);
 Route::resource('users',\App\Http\Controllers\UserController::class)->middleware(['auth']);
 Route::resource('departments',\App\Http\Controllers\DepartmentController::class)->middleware(['auth']);
 Route::resource('positions',\App\Http\Controllers\PositionController::class)->middleware(['auth']);
-Route::resource('accounts',\App\Http\Controllers\AccountController::class)->middleware(['auth']);
+Route::resource('users',\App\Http\Controllers\UserController::class)->middleware(['auth']);
 
 // Other Controller
 // Logout
 Route::get('/logout',[\App\Http\Controllers\HomeController::class,'logout'])->middleware(['auth'])->name('home.logout');
 
-Auth::routes();
+
+Auth::routes(['register'=>false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
-use App\Models\ProjectTask;
-use App\Models\Task;
-use DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Models\Position;
 
 class UserController extends Controller
 {
@@ -29,7 +30,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $accountCode = Str::random(8);
+        $department = Department::all();
+        $positions = Position::all();
+        $context = [
+            'department' =>$department,
+            'accountCode' => $accountCode,
+            'positions' => $positions
+        ];
+        return view('User.create',$context);
     }
 
     /**
@@ -40,7 +49,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Xử lý dữ liệu
+        if($request->has('avatar_upload')){
+            $avatar = $request->avatar_upload;
+            $avatarName = 'avatar'.time().rand(1,1000).'.'.$avatar->extension();
+            $avatar->move(public_path('avatar_upload'), $avatarName);
+        }
+        $request->merge(['avatar' => $avatarName]);
+        $create_account = User::create($request->all());
+        // Hash password
+        $create_account->password = Hash::make($request->password);
+        $create_account->save();
+        if($create_account){
+            return back()->with('success', 'Đã thêm 1 tài khoản');
+        }else{
+            return back()->with('error', 'Thêm mới thất bại!');
+        }
     }
 
     /**
@@ -62,13 +86,28 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $projects = Project::all();
-        // lấy id project của user hiện tại
-        $user_pj = User::join('projects', 'users.id' , '=', 'projects.user_id')
-            ->where('users.id', '=', $id)
-            ->get(['users.*', 'projects.*']);
-//        dd($user_pj);
-        return view('User.update', compact('user_pj'));
+        // Tìm user có id tương ứng để chỉnh sữa
+        $users = User::find($id);
+
+        // Nếu account chưa có mã tài khoản thì random vào
+        $accountCode = Str::random(8);
+
+        // Lấy dữ liệu
+        $department = Department::all();
+        $positions = Position::all();
+
+        // Get id để so sánh
+        $get_id_dp = $users->department_id;
+        $get_id_ps = $users->position_id;
+        $context = [
+            'users' => $users,
+            'department' => $department,
+            'positions' => $positions,
+            'get_id_dp' => $get_id_dp,
+            'get_id_ps' => $get_id_ps,
+            'accountCode' => $accountCode
+        ];
+        return view('User.update',$context);
     }
 
     /**
@@ -80,11 +119,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $up = User::find($id)->update($request->all());
-        if($up) {
-            return back()->with('success', 'Cập nhật thành công!');
-        }else
-            return back()->with('error', 'Cập nhật thất bại!');
+
+        if($request->hasFile('avatar_upload')){
+            $avatar = $request->avatar_upload;
+            $avatarName = 'avatar'.time().rand(1,100).'.'.$avatar->extension();
+            $avatar->move(public_path('avatar_upload'), $avatarName);
+            $request->merge(['avatar' => $avatarName]);
+        }
+
+        $update = User::find($id)->update($request->all());
+        if($update){
+            return back()->with('success', 'Cập nhật thông tin thành công!');
+        }
     }
 
     /**

@@ -66,34 +66,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if (request()->hasFile('avatar')) {
-            $image      = request()->file('avatar');
-            $fileName   = time() . '.' . $image->getClientOriginalExtension();
-
-            $img = Image::make($image->getRealPath());
-            $img->resize(120, 120, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-
-            $img->stream(); // <-- Key point
-
-            //dd();
-            Storage::disk('local')->put('avatarUpload'.'/'.$fileName, $img, 'public');
+        if(request()->has('avatar_upload')){
+            $avatar = request()->avatar_upload;
+            $avatarName = 'avatar'.time().rand(1,1000).'.'.$avatar->extension();
+            $avatar->move(public_path('avatar_upload'), $avatarName);
+            request()->merge(['avatar' => $avatarName]);
             return User::create ([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'address' => $data['address'],
                 'phone' => $data['phone'],
-                'avatar' => $image,
+                'role' => $data['role'],
+                'avatar' => $avatarName
             ]);
         }
 
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-    ]);
 
     }
 }

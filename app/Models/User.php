@@ -26,7 +26,13 @@ class User extends Authenticatable
         'avatar',
         'address',
         'role',
-        'phone'
+        'phone',
+        'department_id',
+        'position_id',
+        'gender',
+        'status',
+        'userCode',
+        'dateJoin'
     ];
 
     /**
@@ -50,5 +56,13 @@ class User extends Authenticatable
 
     public function project(){
         return $this->hasMany(Project::class,'user_id','id');
+    }
+
+    public function position(){
+        return $this->belongsTo(Position::class,'position_id');
+    }
+
+    public function department(){
+        return $this->belongsTo(Department::class,'department_id');
     }
 }

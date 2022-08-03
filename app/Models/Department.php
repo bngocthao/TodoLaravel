@@ -17,7 +17,7 @@ class Department extends Model
         'manager_id'
     ];
 
-    public function accounts(){
-        return $this->hasMany(Account::class,'department_id','id');
+    public function users(){
+        return $this->hasMany(User::class,'department_id','id');
     }
 }

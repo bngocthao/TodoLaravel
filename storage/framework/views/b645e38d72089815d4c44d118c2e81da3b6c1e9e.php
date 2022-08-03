@@ -129,7 +129,7 @@ unset($__errorArgs, $__bag); ?>
                             <label for="password" class="col-md-4 col-form-label text-md-end"><?php echo e(__('Ảnh đại diện')); ?></label>
 
                             <div class="col-md-6">
-                                <input type="file" class="form-control" name="avatar">
+                                <input type="file" class="form-control" name="avatar_upload">
 
                             </div>
                         </div>

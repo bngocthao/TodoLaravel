@@ -97,8 +97,10 @@
 
                                 <div class="dropdown-toggle" data-toggle="dropdown">
                                     
+                                    <img src="/avatar_upload/<?php echo e(Auth::user()->avatar); ?>" class="img-radius" alt="User-Profile-Image">
 
                                     <span><?php echo e(Auth::user()->name); ?></span>
+
                                     <i class="feather icon-chevron-down"></i>
                                 </div>
                                 <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">

@@ -38,7 +38,6 @@
                                                 </td>
                                                 <td>{{$item->accountCode}}</td>
                                                 <td>{{$item->fullName}}</td>
-
                                                 <td>{{$item->department->departmentName}}</td>
                                                 <td>{{$item->position->positionName}}</td>
                                                 @if($item->status == 1)

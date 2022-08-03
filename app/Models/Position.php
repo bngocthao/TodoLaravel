@@ -17,8 +17,8 @@ class Position extends Model
         'positionStatus',
     ];
 
-    public function accounts(){
-        return $this->hasMany(Account::class,'position_id','id');
+    public function users(){
+        return $this->hasMany(User::class,'position_id','id');
     }
 }
 

@@ -13,4 +13,5 @@ final class Gender extends Enum
 {
     const Man =   0;
     const Woman =  1;
+    const Other = 3;
 }

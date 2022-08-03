@@ -9,6 +9,7 @@ use App\Models\ProjectTask;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class ProjectController extends Controller
@@ -18,6 +19,7 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $projects = Project::all();
