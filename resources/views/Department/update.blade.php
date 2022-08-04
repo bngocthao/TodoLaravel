@@ -31,7 +31,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Thông tin phòng ban</label>
                         <div class="col-sm-10">
-                            <input required name="departmentDes" type="text" class="form-control" value="{{$departments->departmentDes}}">
+                            <textarea class="ckeditor form-control" name="departmentDes" >{{$departments->departmentDes}}</textarea>
                         </div>
                     </div>
 

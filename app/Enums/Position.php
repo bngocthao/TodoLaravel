@@ -11,6 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class Position extends Enum
 {
-    const projectManager =   0;
-    const employee =   1;
+    const admin =   0;
+    const projectManager =   1;
+    const employeee = 2;
 }

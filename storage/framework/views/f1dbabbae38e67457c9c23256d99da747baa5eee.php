@@ -1,5 +1,4 @@
-@extends('home')
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="col-sm-12">
         <!-- Basic Form Inputs card start -->
         <div class="card">
@@ -11,12 +10,12 @@
             </div>
             <div class="card-block">
                 <h4 class="sub-title">THÊM PHÒNG BAN</h4>
-                <form action="{{route('departments.store')}}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                <form action="<?php echo e(route('departments.store')); ?>" method="POST" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mã phòng ban</label>
                         <div class="col-sm-10">
-                            <input required name="departmentCode" type="text" style="font-weight: bold; color: red" class="form-control" value="{{$codeRandom}}">
+                            <input required name="departmentCode" type="text" style="font-weight: bold; color: red" class="form-control" value="<?php echo e($codeRandom); ?>">
                         </div>
                     </div>
 
@@ -46,9 +45,9 @@
                         <label class="col-sm-2 col-form-label">Quản lý phòng</label>
                         <div class="col-sm-10">
                             <select name="manager_id" class="form-control">
-{{--                                @foreach($project_list as $pj)--}}
-{{--                                    <option value="{{$pj->id}}">{{$pj->nameProject}}</option>--}}
-{{--                                @endforeach--}}
+
+
+
                             </select>
                         </div>
                     </div>
@@ -60,13 +59,15 @@
         </div>
     </div>
 
-    {{--activate img upload option--}}
+    
     <script type="text/javascript">
         CKEDITOR.replace('departmentDes', {
-            filebrowserUploadUrl: "{{route('departments.store', ['_token' => csrf_token() ])}}",
+            filebrowserUploadUrl: "<?php echo e(route('departments.store', ['_token' => csrf_token() ])); ?>",
             filebrowserUploadMethod: 'form'
         });
     </script>
 
-    @include('Notification')
-@endsection
+    <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\Project-Management-Laravel\resources\views/Department/create.blade.php ENDPATH**/ ?>

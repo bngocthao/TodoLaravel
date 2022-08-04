@@ -11,7 +11,7 @@ use BenSampo\Enum\Enum;
  */
 final class Gender extends Enum
 {
-    const Man =   0;
-    const Woman =  1;
-    const Other = 3;
+    const Nam =   0;
+    const Nữ =  1;
+    const Khác = 3;
 }

@@ -1,5 +1,4 @@
-@extends('home')
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="col-sm-12">
         <!-- Basic Form Inputs card start -->
         <div class="card">
@@ -11,13 +10,13 @@
 
             <div class="card-block">
                 <h4 class="sub-title">TẠO MỚI TÀI KHOẢN</h4>
-                <form action="{{route('users.store')}}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                <form action="<?php echo e(route('users.store')); ?>" method="POST" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mã tài khoản</label>
                         <div class="col-sm-10">
-                            <input required name="userCode" type="text" class="form-control" value="{{$accountCode}}" style="color: red; font-weight: bold">
+                            <input required name="userCode" type="text" class="form-control" value="<?php echo e($accountCode); ?>" style="color: red; font-weight: bold">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -77,9 +76,9 @@
                         <label class="col-sm-2 col-form-label">Vai trò <span style="color: red; font-weight: bold">(*)</span></label>
                         <div class="col-sm-10">
                             <select name="department_id" class="form-control">
-                                @foreach($users as $item)
-                                    <option value="{{$item->role}}">{{$item->role}}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($item->role); ?>"><?php echo e($item->role); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -88,7 +87,9 @@
                         <label class="col-sm-2 col-form-label">Thuộc phòng ban <span style="color: red; font-weight: bold">(*)</span></label>
                         <div class="col-sm-10">
                             <select name="department_id" class="form-control">
-                                    <option value="{{$item->id}}">{{$item->departmentName}}</option>
+                                <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->departmentName); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -97,9 +98,9 @@
                         <label class="col-sm-2 col-form-label">Chức vụ người dùng <span style="color: red; font-weight: bold">(*)</span></label>
                         <div class="col-sm-10">
                             <select name="position_id" class="form-control">
-                                @foreach($positions as $item)
-                                    <option value="{{$item->id}}">{{$item->positionName}}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $positions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->positionName); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -127,5 +128,7 @@
             </div>
         </div>
     </div>
-    @include('Notification')
-@endsection
+    <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\Project-Management-Laravel\resources\views/User/create.blade.php ENDPATH**/ ?>

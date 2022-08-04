@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
@@ -54,8 +55,8 @@ class UserController extends Controller
             $avatar = $request->avatar_upload;
             $avatarName = 'avatar'.time().rand(1,1000).'.'.$avatar->extension();
             $avatar->move(public_path('avatar_upload'), $avatarName);
+            $request->merge(['avatar' => $avatarName]);
         }
-        $request->merge(['avatar' => $avatarName]);
         $create_account = User::create($request->all());
         // Hash password
         $create_account->password = Hash::make($request->password);
@@ -75,7 +76,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $users = User::find($id);
+        return view('User.detail', compact('users'));
     }
 
     /**

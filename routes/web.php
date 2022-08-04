@@ -29,10 +29,10 @@ Route::get('/clear-cache', function() {
     return 'Clear thành công';
 });
 
-//
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
 // Resource Controller

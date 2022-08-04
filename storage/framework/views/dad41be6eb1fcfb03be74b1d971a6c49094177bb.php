@@ -1,4 +1,4 @@
-{{--<script data-cfasync="false" src="..\..\..\cdn-cgi\scripts\5c5dd728\cloudflare-static\email-decode.min.js"></script>--}}
+
 <script type="text/javascript" src="\template\files\bower_components\jquery\js\jquery.min.js"></script>
 <script type="text/javascript" src="\template\files\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
 <script type="text/javascript" src="\template\files\bower_components\popper.js\js\popper.min.js"></script>
@@ -46,11 +46,11 @@
 <script src="\template\files\assets\pages\filer\custom-filer.js" type="text/javascript"></script>
 <script src="\template\files\assets\pages\filer\jquery.fileuploads.init.js" type="text/javascript"></script>
 
-{{--<script>--}}
-{{--    $(document).ready(function() {--}}
-{{--        $('.js-example-basic-multiple').select2();--}}
-{{--    });--}}
-{{--</script>--}}
+
+
+
+
+
 
 <!-- Custotm -->
 <script type="text/javascript" src="\template\files\assets\pages\todo\todo.js"></script>
@@ -62,3 +62,4 @@
         $('.ckeditor').ckeditor();
     });
 </script>
+<?php /**PATH E:\Project-Management-Laravel\resources\views/footer.blade.php ENDPATH**/ ?>

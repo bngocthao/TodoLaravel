@@ -14,4 +14,6 @@ final class ProjectStatus extends Enum
     const On = '1';
     const Off = '2';
     const Complete = '3';
+    const OnSchedule = '4';
+    const BehindSchedule = '5';
 }
