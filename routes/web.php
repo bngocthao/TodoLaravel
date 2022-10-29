@@ -47,7 +47,6 @@ Route::resource('users',\App\Http\Controllers\UserController::class)->middleware
 // Logout
 Route::get('/logout',[\App\Http\Controllers\HomeController::class,'logout'])->middleware(['auth'])->name('home.logout');
 
-
 Auth::routes(['register'=>false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

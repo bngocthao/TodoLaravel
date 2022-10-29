@@ -17,7 +17,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mã tài khoản</label>
                         <div class="col-sm-10">
-                            <input required name="userCode" type="text" class="form-control" value="{{$accountCode}}" style="color: red; font-weight: bold">
+                            <input required name="userCode" type="text" class="form-control" value="NV{{$accountCode}}" style="color: red; font-weight: bold" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -69,17 +69,17 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày tham gia</label>
                         <div class="col-sm-10">
-                            <input required name="dateJoin" type="date" class="form-control">
+                            <input required min="{{$today}}" name="dateJoin" type="date" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Vai trò <span style="color: red; font-weight: bold">(*)</span></label>
                         <div class="col-sm-10">
-                            <select name="department_id" class="form-control">
-                                @foreach($users as $item)
-                                    <option value="{{$item->role}}">{{$item->role}}</option>
-                                @endforeach
+                            <select name="role" class="form-control">
+                                <option value="{{\App\Enums\Role::admin}}">Admin</option>
+                                <option value="{{\App\Enums\Role::projectManager}}">Quản lý</option>
+                                <option value="{{\App\Enums\Role::employee}}">Thành viên</option>
                             </select>
                         </div>
                     </div>
@@ -88,7 +88,9 @@
                         <label class="col-sm-2 col-form-label">Thuộc phòng ban <span style="color: red; font-weight: bold">(*)</span></label>
                         <div class="col-sm-10">
                             <select name="department_id" class="form-control">
+                                @foreach($department as $item)
                                     <option value="{{$item->id}}">{{$item->departmentName}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

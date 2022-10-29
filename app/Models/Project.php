@@ -13,17 +13,21 @@ class Project extends Model
     protected $fillable = [
         'nameProject',
         'description',
-        'user_id',
+//        'user_id',
         'start_at',
         'end_at',
         'status'
     ];
 
     public function users(){
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(Projects_users::class,'user_id','id');
     }
 
     public function tasks(){
-        return $this->hasMany(Task::class,'project_id','id');
+        return $this->hasMany(Projects_tasks::class,'project_id','id');
+    }
+
+    public function project_info(){
+        return $this->hasManyThrough( Projects_tasks::class, Task::class);
     }
 }

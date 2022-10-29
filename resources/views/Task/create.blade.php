@@ -23,21 +23,21 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả công việc</label>
                         <div class="col-sm-10">
-                            <input required name="description" type="text" class="form-control" placeholder="Mô tả công việc">
+                            <textarea class="ckeditor form-control" name="description"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-10">
-                            <input required name="start_at" type="date" class="form-control">
+                            <input required name="start_at" type="date" id="#dropper-animation" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-10">
-                            <input required name="end_at" type="date" class="form-control">
+                            <input name="end_at" type="date" id="#dropper-animation" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -63,19 +63,42 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Thuộc dự án</label>
                         <div class="col-sm-10">
-                            <select name="project_id" class="form-control">
+                            <select name="project->project_id" class="form-control">
                                 @foreach($project_list as $pj)
                                     <option value="{{$pj->id}}">{{$pj->nameProject}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
+
+                    <style>
+                        .select2-selection__choice{
+                            background: deepskyblue!important;
+                        }
+                    </style>
+                    <!-- Hiển thị thành viên có vai trò là nhân viên -->
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Thành viên tham gia</label>
+                        <div class="col-sm-10">
+                            <select name="users->user_id" class="js-example-basic-multiple col-sm-12 select2-hidden-accessible" multiple="" tabindex="-1" aria-hidden="true">
+                                @foreach($users as $usr)
+                                    @if($usr->role == 2)
+                                        <option value="{{ $usr->id }}">{{ $usr->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-info float-right btn-round">Thêm công việc</button>
                     </div>
+
                 </form>
             </div>
         </div>
     </div>
+
     @include('Notification')
 @endsection

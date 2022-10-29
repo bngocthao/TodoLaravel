@@ -54,7 +54,7 @@
                         <i class="feather icon-menu"></i>
                     </a>
                     <a href="<?php echo e(route('home')); ?>">
-                        <img class="img-fluid" src="\template\files\assets\images\logo.png" alt="Theme-Logo" width = "25%">
+                            <img class="img-fluid" style="width:25% !important;" src="\template\files\assets\images\logo.png" alt="Theme-Logo" width = "25%">
                     </a>
                     <a class="mobile-options">
                         <i class="feather icon-more-horizontal"></i>
@@ -84,20 +84,12 @@
 
                             </div>
                         </li>
-
-
-
-
-
-
-
-
                         <li class="user-profile header-notification">
                             <div class="dropdown-primary dropdown">
 
                                 <div class="dropdown-toggle" data-toggle="dropdown">
                                     
-                                    <img src="/avatar_upload/<?php echo e(Auth::user()->avatar); ?>" class="img-radius" alt="User-Profile-Image">
+
 
                                     <span><?php echo e(Auth::user()->name); ?></span>
 
@@ -105,7 +97,8 @@
                                 </div>
                                 <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                     <li>
-                                        <a href="user-profile.htm">
+                                        <a href="<?php echo e(route('users.show', Auth::user()->id)); ?>">
+
                                             <i class="feather icon-user"></i> Thông tin
                                         </a>
                                     </li>
@@ -126,6 +119,7 @@
         <?php echo $__env->make('sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
 </div>
+
 <?php echo $__env->make('footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </body>
 </html>

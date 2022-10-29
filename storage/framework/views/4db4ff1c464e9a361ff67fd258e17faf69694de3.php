@@ -71,7 +71,7 @@
                                                                 Action
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="#">Chi tiết</a>
+                                                                <a class="dropdown-item" href="<?php echo e(route('tasks.show', $item)); ?>">Chi tiết</a>
                                                                 <a class="dropdown-item" href="<?php echo e(route('tasks.edit', $item)); ?>">Chỉnh sửa</a>
                                                                 <form method="POST" action=" <?php echo e(route('tasks.destroy', $item)); ?>">
                                                                     <?php echo csrf_field(); ?>

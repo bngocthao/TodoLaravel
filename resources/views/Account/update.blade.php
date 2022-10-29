@@ -96,6 +96,7 @@
                         </div>
                     </div>
 
+
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Thuộc phòng ban <span style="color: red; font-weight: bold">(*)</span></label>
                         <div class="col-sm-10">
@@ -118,13 +119,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Ảnh đại diện (Không bắt buộc)</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="file" name="avatar_upload" accept="image/*">
-                        </div>
-                    </div>
-
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Trạng thái tài khoản</label>
@@ -133,6 +127,13 @@
                                 <option @if($accounts->status == 1) selected @endif value="1">Kích hoạt</option>
                                 <option @if($accounts->status == 2) selected @endif value="2">Tạm ẩm</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Ảnh đại diện (Không bắt buộc)</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="file" name="avatar_upload" accept="image/*">
                         </div>
                     </div>
 

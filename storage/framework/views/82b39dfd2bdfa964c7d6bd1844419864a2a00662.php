@@ -6,7 +6,7 @@
                 <!-- Zero config.table start -->
                 <div class="card">
                     <div class="card-header">
-                        <h2>Danh sách tài khoản <a href="<?php echo e(route('users.create')); ?>" class="btn btn-danger">Thêm mới tài khoản</a></h2>
+                        <h2>Danh sách tài khoản <a href="<?php echo e(route('users.create')); ?>" class="btn btn-round btn-success">Thêm mới tài khoản</a></h2>
                     </div>
                     <div class="card-block">
                         <div class="dt-responsive table-responsive">
@@ -19,7 +19,7 @@
                                             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;">#</th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;">Mã tài khoản</th>
-                                                <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 185.5px;">Họ và tện</th>
+                                                <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 185.5px;">Họ tên</th>
 
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 30px;">Phòng ban</th>
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 73px;">Chức vụ</th>
@@ -32,17 +32,21 @@
                                                 <tr role="row" class="odd">
                                                     <td style="text-align: center">
                                                         <span class="media-left media-middle" href="#">
-                                                            <img style="max-width: 100px" class="img-radius" src="/avatar_upload/<?php echo e($item->avatar); ?>" alt="Chưa có ảnh đại diện">
+                                                            <?php if(isset($item->avatar)): ?>
+                                                                <img style="max-width: 100px" class="img-radius" src="/avatar_upload/<?php echo e($item->avatar); ?>">
+                                                            <?php else: ?>
+                                                                <p>Chưa có ảnh</p>
+                                                            <?php endif; ?>
                                                         </span>
                                                     </td>
                                                     <td><?php echo e($item->userCode); ?></td>
                                                     <td><?php echo e($item->name); ?></td>
-                                                    <td><?php echo e($item->department->departmentName ?? 'None'); ?></td>
-                                                    <td><?php echo e($item->position->positionName ?? 'None'); ?></td>
-                                                    <?php if($item->status == 1): ?>
+                                                    <td><?php echo e($item->department->departmentName ?? 'Trống'); ?></td>
+                                                    <td><?php echo e($item->position->positionName ?? 'Trống'); ?></td>
+                                                    <?php if($item->status == '1'): ?>
                                                         <td><span class="btn btn-success">Đã kích hoạt</span></td>
                                                     <?php else: ?>
-                                                        <td><span class="btn btn-danger">Đã khóa</span></td>
+                                                        <td><span class="btn btn-danger"><?php echo e($item->status); ?></span></td>
                                                     <?php endif; ?>
                                                     <td>
                                                         <!-- Example single danger button -->

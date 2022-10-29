@@ -19,12 +19,14 @@
 
 
     <!-- Styles -->
+    <link href="<?php echo e(asset('css/login.css')); ?>" rel="stylesheet">
 
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-warning shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
                     <?php echo e(config('app.name', 'Laravel')); ?>

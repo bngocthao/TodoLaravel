@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->longText('nameProject');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->date('start_at');
-            $table->date('end_at');
+            $table->date('start_at')->nullable();
+            $table->date('end_at')->nullable();
             $table->string('status')->default(\App\Enums\ProjectStatus::On);
             $table->timestamps();
         });

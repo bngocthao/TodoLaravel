@@ -24,21 +24,21 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả dự án</label>
                         <div class="col-sm-10">
-                            <input required name="description" type="text" class="form-control" value="{{ $project->description }}">
+                            <textarea class="ckeditor form-control" name="description"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-10">
-                            <input required name="start_at" type="date" class="form-control" value="{{ $project->start_at }}">
+                            <input min="{{$today}}" required name="start_at" type="date" class="form-control" value="{{ $project->start_at }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-10">
-                            <input required name="end_at" type="date" class="form-control" value="{{ $project->end_at }}">
+                            <input min="{{$today}}" name="end_at" type="date" class="form-control" value="{{ $project->end_at }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -64,6 +64,32 @@
                             </select>
                         </div>
                     </div>
+
+                    <style>
+                        .select2-selection__choice{
+                            background: deepskyblue!important;
+                        }
+                    </style>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Thành viên</label>
+                        <!-- Hiển thị thành viên đã được thêm và những thành viên chưa được thêm -->
+                        <div class="col-sm-10">
+                            <select name="users->user_id" class="js-example-basic-multiple col-sm-12 select2-hidden-accessible" multiple="" tabindex="-1" aria-hidden="true">
+                                @foreach($users as $usr)
+                                    @if($usr->role == 2)
+                                        @foreach($pUsers as $ePUser)
+                                            @if($usr->id == $ePUser->user_id && $ePUser->project_id == $project->id)
+                                                <option value="{{ $usr->id }}" selected>{{ $usr->name }}</option>
+                                            @else
+                                                <option value="{{ $usr->id }}">{{ $usr->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div  class="d-flex">
                         <button type="submit" class="btn btn-success float-right btn-round">Cập nhật</button>
                         &nbsp;&nbsp;<a href="{{route('projects.index')}}" class="btn btn-warning float-right btn-round">Quay lại</a>

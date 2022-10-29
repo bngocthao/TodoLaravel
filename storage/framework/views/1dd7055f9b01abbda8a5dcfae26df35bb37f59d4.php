@@ -16,7 +16,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mã phòng ban</label>
                         <div class="col-sm-10">
-                            <input required name="departmentCode" type="text" style="font-weight: bold; color: red" class="form-control" value="<?php echo e($departments->departmentCode); ?>">
+                            <input required name="departmentCode" type="text" style="font-weight: bold; color: red" class="form-control" value="<?php echo e($departments->departmentCode); ?>" disabled>
                         </div>
                     </div>
 
@@ -46,9 +46,11 @@
                         <label class="col-sm-2 col-form-label">Quản lý phòng</label>
                         <div class="col-sm-10">
                             <select name="manager_id" class="form-control">
-                                
-                                
-                                
+                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if($i->role == '2'): ?>
+                                        <option value="<?php echo e($i->id); ?>"><?php echo e($i->name); ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -59,6 +61,12 @@
             </div>
         </div>
     </div>
+    <script>
+        CKEDITOR.replace( 'ckeditor', {
+            filebrowserUploadUrl: "<?php echo e(route('departments.store', ['_token' => csrf_token() ])); ?>",
+            filebrowserUploadMethod: 'form'
+        });
+    </script>
     <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 

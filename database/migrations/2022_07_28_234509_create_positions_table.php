@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
             $table->string('positionName');
-            $table->longText('positionDes');
+            $table->longText('positionDes')->nullable();
             $table->string('positionStatus')->default(PositionStatus::Open);
             $table->timestamps();
         });

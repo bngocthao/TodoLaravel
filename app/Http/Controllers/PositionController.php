@@ -2,23 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProjectStatus;
 use App\Enums\TaskStatus;
 use App\Models\Position;
+use App\Models\Project;
+use App\Models\Task;
+use App\Repository\Task\TaskRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PositionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $numberOfProject;
+    protected $numberOfTask;
+    protected $doneTask;
+    protected $doneProject;
+    public function __construct(){
+        $this->numberOfProject= Project::count();
+        $this->numberOfTask = Task::count();
+        $this->doneTask = Task::where('status',TaskStatus::Complete)->count();
+        $this->doneProject = Project::where('status',ProjectStatus::Complete)->count();
+    }
     public function index()
     {
         $positions = Position::where('positionStatus',TaskStatus::On)->get();
         $context = [
-            'positions' => $positions
+            'positions' => $positions,
+            'numberOfProject' => $this->numberOfProject,
+            'numberOfTask' => $this->numberOfTask,
+            'doneTask' => $this->doneTask,
+            'doneProject' => $this->doneProject
         ];
         return view('Position.index',$context);
 
@@ -33,7 +46,11 @@ class PositionController extends Controller
     {
         $randomCode = Str::random(8);
         $context = [
-            'randomCode' => $randomCode
+            'randomCode' => $randomCode,
+            'numberOfProject' => $this->numberOfProject,
+            'numberOfTask' => $this->numberOfTask,
+            'doneTask' => $this->doneTask,
+            'doneProject' => $this->doneProject
         ];
         return view('Position.create',$context);
     }
@@ -76,7 +93,11 @@ class PositionController extends Controller
     {
         $positions = Position::find($id);
         $context = [
-            'positions' => $positions
+            'positions' => $positions,
+            'numberOfProject' => $this->numberOfProject,
+            'numberOfTask' => $this->numberOfTask,
+            'doneTask' => $this->doneTask,
+            'doneProject' => $this->doneProject
         ];
         return view('Position.update',$context);
     }

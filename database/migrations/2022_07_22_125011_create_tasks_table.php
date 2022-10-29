@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('taskName');
-            $table->longText('description');
-            $table->date('start_at');
-            $table->date('end_at');
+            $table->longText('description')->nullable();
+            $table->date('start_at')->nullable();
+            $table->date('end_at')->nullable();
             $table->string('status')->default(\App\Enums\TaskStatus::On);
-            $table->string('priority');
+            $table->string('priority')->nullable();
 
             $table->timestamps();
         });

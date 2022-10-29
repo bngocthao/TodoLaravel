@@ -17,7 +17,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mã phòng ban</label>
                         <div class="col-sm-10">
-                            <input required name="departmentCode" type="text" style="font-weight: bold; color: red" class="form-control" value="{{$departments->departmentCode}}">
+                            <input required name="departmentCode" type="text" style="font-weight: bold; color: red" class="form-control" value="{{$departments->departmentCode}}" disabled>
                         </div>
                     </div>
 
@@ -47,9 +47,11 @@
                         <label class="col-sm-2 col-form-label">Quản lý phòng</label>
                         <div class="col-sm-10">
                             <select name="manager_id" class="form-control">
-                                {{--                                @foreach($project_list as $pj)--}}
-                                {{--                                    <option value="{{$pj->id}}">{{$pj->nameProject}}</option>--}}
-                                {{--                                @endforeach--}}
+                                @foreach($users as $i)
+                                    @if($i->role == '2')
+                                        <option value="{{$i->id}}">{{$i->name}}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -60,5 +62,11 @@
             </div>
         </div>
     </div>
+    <script>
+        CKEDITOR.replace( 'ckeditor', {
+            filebrowserUploadUrl: "{{route('departments.store', ['_token' => csrf_token() ])}}",
+            filebrowserUploadMethod: 'form'
+        });
+    </script>
     @include('Notification')
 @endsection

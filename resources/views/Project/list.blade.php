@@ -32,7 +32,7 @@
                                         @foreach($projects as $item)
                                         <tr role="row" class="odd">
                                             <td class="sorting_1">{{ $item->nameProject }}</td>
-                                            <td>{{ $item->description }}</td>
+                                            <td>{!! $item->description !!}</td>
                                             <td>{{ date('d-m-Y', strtotime($item->start_at)) }}</td>
                                             <td>{{ date('d-m-Y', strtotime($item->end_at)) }}</td>
                                             <td>{{ $item->users->name ?? 'None' }}</td>

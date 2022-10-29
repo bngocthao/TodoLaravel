@@ -16,7 +16,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mã tài khoản</label>
                         <div class="col-sm-10">
-                            <input required name="userCode" type="text" class="form-control" value="<?php echo e($accountCode); ?>" style="color: red; font-weight: bold">
+                            <input required name="userCode" type="text" class="form-control" value="NV<?php echo e($accountCode); ?>" style="color: red; font-weight: bold" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -68,17 +68,17 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày tham gia</label>
                         <div class="col-sm-10">
-                            <input required name="dateJoin" type="date" class="form-control">
+                            <input required min="<?php echo e($today); ?>" name="dateJoin" type="date" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Vai trò <span style="color: red; font-weight: bold">(*)</span></label>
                         <div class="col-sm-10">
-                            <select name="department_id" class="form-control">
-                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($item->role); ?>"><?php echo e($item->role); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <select name="role" class="form-control">
+                                <option value="<?php echo e(\App\Enums\Role::admin); ?>">Admin</option>
+                                <option value="<?php echo e(\App\Enums\Role::projectManager); ?>">Quản lý</option>
+                                <option value="<?php echo e(\App\Enums\Role::employee); ?>">Thành viên</option>
                             </select>
                         </div>
                     </div>

@@ -31,7 +31,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả chức vụ</label>
                         <div class="col-sm-10">
-                            <input required name="positionDes" type="text" class="form-control" value="{{$positions->positionDes}}">
+                            <input name="positionDes" type="text" class="form-control" value="{{$positions->positionDes}}">
                         </div>
                     </div>
 

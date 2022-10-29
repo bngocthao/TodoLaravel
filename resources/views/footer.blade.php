@@ -1,3 +1,5 @@
+@include('chatbot')
+
 {{--<script data-cfasync="false" src="..\..\..\cdn-cgi\scripts\5c5dd728\cloudflare-static\email-decode.min.js"></script>--}}
 <script type="text/javascript" src="\template\files\bower_components\jquery\js\jquery.min.js"></script>
 <script type="text/javascript" src="\template\files\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
@@ -56,9 +58,14 @@
 <script type="text/javascript" src="\template\files\assets\pages\todo\todo.js"></script>
 
 <!-- CK editor -->
-<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-<script type="text/javascript">
+<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script><script type="text/javascript">
     $(document).ready(function () {
         $('.ckeditor').ckeditor();
     });
+
 </script>
+
+<!-- Multiselect js -->
+<script type="text/javascript" src="\template\files\bower_components\bootstrap-multiselect\js\bootstrap-multiselect.js"></script>
+<script type="text/javascript" src="\template\files\bower_components\multiselect\js\jquery.multi-select.js"></script>
+<script type="text/javascript" src="\template\files\assets\js\jquery.quicksearch.js"></script>

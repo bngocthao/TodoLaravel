@@ -32,7 +32,7 @@
                                         <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr role="row" class="odd">
                                             <td class="sorting_1"><?php echo e($item->nameProject); ?></td>
-                                            <td><?php echo e($item->description); ?></td>
+                                            <td><?php echo $item->description; ?></td>
                                             <td><?php echo e(date('d-m-Y', strtotime($item->start_at))); ?></td>
                                             <td><?php echo e(date('d-m-Y', strtotime($item->end_at))); ?></td>
                                             <td><?php echo e($item->users->name ?? 'None'); ?></td>

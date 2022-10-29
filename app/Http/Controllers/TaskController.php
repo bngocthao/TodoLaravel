@@ -2,57 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ProjectStatus;
-use App\Enums\TaskStatus;
-use App\Models\Project;
 use App\Models\ProjectTask;
-use App\Models\Task;
+use App\Repository\Task\TaskRepository;
 use Illuminate\Http\Request;
+use App\Services\Task\TaskServices;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    protected $task;
+    public function __construct(TaskRepository $task){
+        $this->task = $task;
+    }
+
     public function index()
     {
-        // Load dữ liệu task ra view
-        $task_list = Task::where('status',TaskStatus::On)->get();
-        $context = [
-            'task_list' => $task_list,
-        ];
-        return view('Task.list',$context);
+        $getViewIndex = (new TaskServices())->getViewIndex();
+        return view('Task.list',$getViewIndex);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        // Hiễn thị form thêm công việc
-        // Load dữ liệu Project để chọn task thuộc project nào
-        $project_list = Project::where('status',ProjectStatus::On)->get();
-        $context = [
-            'project_list' => $project_list,
-        ];
-        return view('Task.create',$context);
+        $getViewCreate = (new TaskServices())->getViewCreate();
+        return view('Task.create',$getViewCreate);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // Xử lý dữ liệu
-        $create_task = Task::create($request->all());
-        $project_list = Project::where('status',ProjectStatus::On)->get();
+        $create_task = $this->task->store($request->all()); // Repo
         if($create_task){
             return back()->with('success', 'Tạo công việc thành công!');
         }else{
@@ -60,57 +38,30 @@ class TaskController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $getViewShow = (new TaskServices())->getViewShow($id);
+        return view('Task.task_detail',$getViewShow);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        $tasks = Task::find($id);
-        // Lấy id project hiện tại, đem so sánh với project_id trong bảng Tasks
-        $get_id_project = $tasks->project_id;
-        // Đổ dữ liệu bảng Project ra view update
-        $project_list = Project::where('status',ProjectStatus::On)->get();
-        return view('Task.update',compact('tasks','get_id_project','project_list'));
+        $getViewEdit = (new TaskServices())->getViewEdit($id);
+        return view("Task.update",$getViewEdit);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        $update = Task::find($id)->update($request->all());
+        $update = $this->task->update($id,$request->all());
         if($update){
             return back()->with('success', 'Đã cập nhật công việc!');
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $delete = Task::find($id)->delete();
+        $delete = $this->task->destroy($id);
         if($delete){
             return back()->with('error', 'Đã xóa 1 công việc!');
         }

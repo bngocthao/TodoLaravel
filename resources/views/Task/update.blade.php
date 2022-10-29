@@ -45,8 +45,11 @@
                         <label class="col-sm-2 col-form-label">Trạng thái công việc</label>
                         <div class="col-sm-10">
                             <select name="status" class="form-control">
-                                <option @if($tasks->status == \App\Enums\TaskStatus::On) selected @endif value="{{\App\Enums\TaskStatus::On}}">On</option>
-                                <option @if($tasks->status == \App\Enums\TaskStatus::Off) selected @endif value="{{\App\Enums\TaskStatus::Off}}">Off</option>
+                                <option @if($tasks->status == \App\Enums\TaskStatus::On) selected @endif value="{{\App\Enums\TaskStatus::On}}">Đang tiến hành</option>
+                                <option @if($tasks->status == \App\Enums\TaskStatus::Off) selected @endif value="{{\App\Enums\TaskStatus::Off}}">Dừng</option>
+                                <option @if($tasks->status == \App\Enums\TaskStatus::Complete) selected @endif value="{{\App\Enums\TaskStatus::Off}}">Hoàn tất</option>
+                                <option @if($tasks->status == \App\Enums\TaskStatus::OnSchedule) selected @endif value="{{\App\Enums\TaskStatus::Off}}">Đúng hạn</option>
+                                <option @if($tasks->status == \App\Enums\TaskStatus::BehindSchedule) selected @endif value="{{\App\Enums\TaskStatus::Off}}">Trễ hạn</option>
                             </select>
                         </div>
                     </div>

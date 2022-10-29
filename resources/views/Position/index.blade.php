@@ -6,7 +6,7 @@
             <!-- Zero config.table start -->
             <div class="card">
                 <div class="card-header">
-                    <h3 style="font-weight: bold">QUẢN LÝ CHỨC VỤ <a href="{{route('positions.create')}}" style="font-weight: bold; color: white" class="btn btn-success">Thêm mới chức vụ</a></h3>
+                    <h3 style="font-weight: bold">QUẢN LÝ CHỨC VỤ <a href="{{route('positions.create')}}" style="font-weight: bold; color: white" class="btn btn-round btn-success">Thêm mới chức vụ</a></h3>
                     <span>Hiển thị các chức vụ hiện tại trong hệ thống</span>
                 </div>
                 <div class="card-block">

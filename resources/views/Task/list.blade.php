@@ -70,7 +70,7 @@
                                                                 Action
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="#">Chi tiết</a>
+                                                                <a class="dropdown-item" href="{{ route('tasks.show', $item) }}">Chi tiết</a>
                                                                 <a class="dropdown-item" href="{{ route('tasks.edit', $item) }}">Chỉnh sửa</a>
                                                                 <form method="POST" action=" {{ route('tasks.destroy', $item) }}">
                                                                     @csrf

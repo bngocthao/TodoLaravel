@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('departmentName');
-            $table->longText('departmentDes');
+            $table->longText('departmentDes')->nullable();
             $table->unsignedBigInteger('manager_id')->nullable(); // Do ai quản lý
-            $table->integer('slotAccount'); // Số user trong phòng này
+            $table->integer('slotAccount')->nullable(); // Số user trong phòng này
             $table->timestamps();
         });
     }

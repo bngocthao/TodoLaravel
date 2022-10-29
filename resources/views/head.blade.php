@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head>
-    <title>Adminty - Premium Admin Template by Colorlib </title>
+    <title>Trang chủ</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -40,4 +40,8 @@
 
     <link href="\template\files\assets\pages\jquery.filer\css\jquery.filer.css" type="text/css" rel="stylesheet">
     <link href="\template\files\assets\pages\jquery.filer\css\themes\jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet">
+
+    <!-- Multi Select css -->
+    <link rel="stylesheet" type="text/css" href="\template\files\bower_components\bootstrap-multiselect\css\bootstrap-multiselect.css">
+    <link rel="stylesheet" type="text/css" href="\template\files\bower_components\multiselect\css\multi-select.css">
 </head>

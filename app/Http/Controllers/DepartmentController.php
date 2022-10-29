@@ -2,22 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProjectStatus;
+use App\Enums\TaskStatus;
 use App\Models\Department;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Project;
+use App\Models\Task;
 
 class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    protected $numberOfProject;
+    protected $numberOfTask;
+    protected $doneTask;
+    protected $doneProject;
+    public function __construct(){
+        $this->numberOfProject= Project::count();
+        $this->numberOfTask = Task::count();
+        $this->doneTask = Task::where('status',TaskStatus::Complete)->count();
+        $this->doneProject = Project::where('status',ProjectStatus::Complete)->count();
+    }
+
     public function index()
     {
         $department = Department::all();
         $context = [
             'department' => $department,
+            'numberOfProject' => $this->numberOfProject,
+            'numberOfTask' => $this->numberOfTask,
+            'doneTask' => $this->doneTask,
+            'doneProject' => $this->doneProject
         ];
         return view('Department.index',$context);
     }
@@ -32,7 +48,11 @@ class DepartmentController extends Controller
         // Tạo mã phòng ban tự động
         $codeRandom = Str::random(8);
         $context = [
-            'codeRandom' => $codeRandom
+            'codeRandom' => $codeRandom,
+            'numberOfProject' => $this->numberOfProject,
+            'numberOfTask' => $this->numberOfTask,
+            'doneTask' => $this->doneTask,
+            'doneProject' => $this->doneProject
         ];
         return view('Department.create',$context);
     }
@@ -46,8 +66,6 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         // Xử lý dữ liệu
-
-
         if($request->hasFile('departmentDes')) {
             $originName = $request->file('departmentDes')->getClientOriginalName();
             $fileName = pathinfo($originName, PATHINFO_FILENAME);
@@ -55,7 +73,7 @@ class DepartmentController extends Controller
             $fileName = $fileName.'_'.time().'.'.$extension;
             $request->file('upload')->move(public_path('departmentDescription'), $fileName);
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('images/'.$fileName);
+            $url = asset('public/images/'.$fileName);
             $msg = 'Hình đã được lưu';
             $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
 
@@ -91,8 +109,15 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $departments = Department::find($id);
+
+        $users = User::all();
         $context = [
-            'departments' => $departments
+            'departments' => $departments,
+            'users' => $users,
+            'numberOfProject' => $this->numberOfProject,
+            'numberOfTask' => $this->numberOfTask,
+            'doneTask' => $this->doneTask,
+            'doneProject' => $this->doneProject
         ];
         return view('Department.update',$context);
     }
@@ -106,6 +131,7 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $update_department = Department::find($id)->update($request->all());
         if($update_department){
             return back()->with('success', 'Cập nhật phòng ban thành công!');
