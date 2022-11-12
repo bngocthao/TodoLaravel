@@ -11,7 +11,15 @@
             </div>
             <div class="card-block">
                 <h2 class="sub-title">CHỈNH SỬA CÔNG VIỆC</h2>
-                <form action="<?php echo e(route('tasks.update', $tasks)); ?>" method="POST">
+                
+                <?php if(count($errors) > 0): ?>
+                    <ul class="alert alert-danger pl-5">
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+                <?php endif; ?>
+                <form action="/task/<?php echo e($tasks->id); ?>" method="POST" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
                     <?php echo method_field('PUT'); ?>
                     <div class="form-group row">
@@ -24,7 +32,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả công việc</label>
                         <div class="col-sm-10">
-                            <input required name="description" type="text" class="form-control" value="<?php echo e($tasks->description); ?>">
+                            <input required name="description" id="editor" type="text" class="form-control" value="<?php echo e($tasks->description); ?>">
                         </div>
                     </div>
 
@@ -75,7 +83,9 @@
                         </div>
                     </div>
                     <div class="form-group">
+
                         <button type="submit" class="btn btn-info float-right btn-round">Cập nhật công việc</button>
+                        &nbsp;&nbsp;<a href="<?php echo e(route('tasks.index')); ?>" class="btn btn-warning float-right btn-round">Quay lại</a>
                     </div>
                 </form>
             </div>

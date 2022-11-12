@@ -30,7 +30,8 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Thông tin phòng ban</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" name="departmentDes" ><?php echo e($departments->departmentDes); ?></textarea>
+
+                                <textarea class="ckeditor form-control" id="editor" name="departmentDes" ><?php echo $departments->departmentDes; ?></textarea>
                         </div>
                     </div>
 

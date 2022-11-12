@@ -20,7 +20,7 @@
                                         <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;">Tên dự án</th>
-                                            <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 185.5px;">Mô tả dự án</th>
+
                                             <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 84.5px;">Ngày bắt đầu</th>
                                             <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 30px;">Ngày kết thúc</th>
                                             <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 73px;">Quản lý</th>
@@ -32,7 +32,7 @@
                                         <?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr role="row" class="odd">
                                             <td class="sorting_1"><?php echo e($item->nameProject); ?></td>
-                                            <td><?php echo $item->description; ?></td>
+
                                             <td><?php echo e(date('d-m-Y', strtotime($item->start_at))); ?></td>
                                             <td><?php echo e(date('d-m-Y', strtotime($item->end_at))); ?></td>
                                             <td><?php echo e($item->users->name ?? 'None'); ?></td>

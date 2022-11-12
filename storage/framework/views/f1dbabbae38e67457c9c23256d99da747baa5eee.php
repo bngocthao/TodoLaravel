@@ -26,10 +26,12 @@
                         </div>
                     </div>
 
+
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Thông tin phòng ban</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" name="departmentDes"></textarea>
+                            <textarea class="form-control" id="editor" name="departmentDes"></textarea>
+
                         </div>
                     </div>
 

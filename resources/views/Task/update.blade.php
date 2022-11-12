@@ -11,7 +11,15 @@
             </div>
             <div class="card-block">
                 <h2 class="sub-title">CHỈNH SỬA CÔNG VIỆC</h2>
-                <form action="{{route('tasks.update', $tasks)}}" method="POST">
+                {{--Trả về lỗi ràng buộc ngày--}}
+                @if (count($errors) > 0)
+                    <ul class="alert alert-danger pl-5">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+                <form action="/task/{{$tasks->id}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
@@ -24,7 +32,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả công việc</label>
                         <div class="col-sm-10">
-                            <input required name="description" type="text" class="form-control" value="{{$tasks->description}}">
+                            <input required name="description" id="editor" type="text" class="form-control" value="{{$tasks->description}}">
                         </div>
                     </div>
 
@@ -75,7 +83,9 @@
                         </div>
                     </div>
                     <div class="form-group">
+
                         <button type="submit" class="btn btn-info float-right btn-round">Cập nhật công việc</button>
+                        &nbsp;&nbsp;<a href="{{route('tasks.index')}}" class="btn btn-warning float-right btn-round">Quay lại</a>
                     </div>
                 </form>
             </div>

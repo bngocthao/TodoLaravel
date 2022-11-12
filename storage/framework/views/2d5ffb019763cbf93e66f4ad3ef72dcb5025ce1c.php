@@ -1,5 +1,11 @@
 
 <?php $__env->startSection('content'); ?>
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 
     <div class="pcoded-inner-content">
         <!-- Main-body start -->
@@ -35,8 +41,11 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="card-block" style="">
-                                    <p>
+                                <div class="card-block " style="">
+                                    <img class="col-lg-12" src="/project_upload/<?php echo e($projectsName->image ?? "Trống"); ?>"></img>
+                                </div>
+                                <div class="card-block " style="">
+                                    <p class="col-lg-8" >
                                         <?php echo $projectsName->description; ?>
 
                                     </p>

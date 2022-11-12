@@ -1,6 +1,5 @@
 
 <?php $__env->startSection('content'); ?>
-
     <div class="col-sm-12">
         <!-- Basic Form Inputs card start -->
         <div class="card">
@@ -11,7 +10,15 @@
             </div>
             <div class="card-block">
                 <h4 class="sub-title">CHỈNH SỬA DỰ ÁN</h4>
-                <form action="/projects/<?php echo e($project->id); ?>" method="POST">
+                
+                <?php if(count($errors) > 0): ?>
+                    <ul class="alert alert-danger pl-5">
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+                <?php endif; ?>
+                <form action="/projects/<?php echo e($project->id); ?>" method="POST" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
                     <?php echo method_field('PUT'); ?>
                     <div class="form-group row">
@@ -22,23 +29,35 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Thay ảnh</label>
+                        <div class="col-sm-10">
+                            <input class="form-group" type="file" name="image" value="<?php echo e($project->image); ?>">
+                            <img class="col-sm-10" src="/project_upload/<?php echo e($project->image); ?>"  />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả dự án</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" name="description"></textarea>
+                            <textarea class="ckeditor form-control" id="editor" name="description" value="<?php echo e($project->description); ?>">
+
+                            </textarea>
+
+
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-10">
-                            <input min="<?php echo e($today); ?>" required name="start_at" type="date" class="form-control" value="<?php echo e($project->start_at); ?>">
+                            <input required name="start_at" id="date" type="date" class="form-control" value="<?php echo e($project->start_at); ?>">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-10">
-                            <input min="<?php echo e($today); ?>" name="end_at" type="date" class="form-control" value="<?php echo e($project->end_at); ?>">
+                            <input min="<?php echo e($project->start_at); ?>" id="date" name="end_at" type="date" class="form-control" value="<?php echo e($project->end_at); ?>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -74,24 +93,28 @@
                         <label class="col-sm-2 col-form-label">Thành viên</label>
                         <!-- Hiển thị thành viên đã được thêm và những thành viên chưa được thêm -->
                         <div class="col-sm-10">
+                            
                             <select name="users->user_id" class="js-example-basic-multiple col-sm-12 select2-hidden-accessible" multiple="" tabindex="-1" aria-hidden="true">
-                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $usr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if($usr->role == 2): ?>
-                                        <?php $__currentLoopData = $pUsers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ePUser): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <?php if($usr->id == $ePUser->user_id && $ePUser->project_id == $project->id): ?>
-                                                <option value="<?php echo e($usr->id); ?>" selected><?php echo e($usr->name); ?></option>
-                                            <?php else: ?>
-                                                <option value="<?php echo e($usr->id); ?>"><?php echo e($usr->name); ?></option>
-                                            <?php endif; ?>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                <?php $__currentLoopData = $empU; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $usr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if($usr->project_id == $project->id): ?>
+                                            <option value="<?php echo e($usr->id); ?>" selected><?php echo e($usr->name); ?></option>
+                                    <?php endif; ?>
+                                    <?php if($usr->project_id == ''): ?>
+                                        <?php if($usr->role == 2): ?>
+                                            <option value="<?php echo e($usr->id); ?>"><?php echo e($usr->name); ?></option>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                             </select>
                         </div>
                     </div>
 
-                    <div  class="d-flex">
-                        <button type="submit" class="btn btn-success float-right btn-round">Cập nhật</button>
+
+                    <div class="form-group">
+
+                    <button type="submit" class="btn btn-success float-right btn-round">Cập nhật</button>
                         &nbsp;&nbsp;<a href="<?php echo e(route('projects.index')); ?>" class="btn btn-warning float-right btn-round">Quay lại</a>
                     </div>
                 </form>
@@ -99,7 +122,9 @@
         </div>
 
     </div>
+
 <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\Project-Management-Laravel\resources\views/Project/update.blade.php ENDPATH**/ ?>

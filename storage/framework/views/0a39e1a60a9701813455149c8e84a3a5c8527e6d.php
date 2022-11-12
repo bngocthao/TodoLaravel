@@ -18,7 +18,7 @@
     <div class="card-block">
         <div class="form-group" style="margin-left: 43%; margin-right: 50%">
             <div class="image-cropper">
-                <img src="/avatar_upload/<?php echo e($users->avatar); ?>" class="rounded" />
+                <img src="/avatar_upload/<?php echo e($users->avatar ?? "Trống"); ?>" class="rounded" />
             </div>
         </div>
         <div class="view-info">

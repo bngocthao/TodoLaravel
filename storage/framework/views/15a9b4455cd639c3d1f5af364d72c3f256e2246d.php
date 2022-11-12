@@ -31,7 +31,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả chức vụ</label>
                         <div class="col-sm-10">
-                            <input name="positionDes" type="text" class="form-control" value="<?php echo e($positions->positionDes); ?>">
+                            <input name="positionDes" id="editor" type="text" class="form-control" value="<?php echo e($positions->positionDes); ?>">
                         </div>
                     </div>
 
@@ -53,6 +53,18 @@
         </div>
     </div>
     <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
+
+
+
+
+
+
+
+
+
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\Project-Management-Laravel\resources\views/Position/update.blade.php ENDPATH**/ ?>

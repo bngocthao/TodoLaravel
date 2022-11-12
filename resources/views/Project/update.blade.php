@@ -1,6 +1,5 @@
 @extends('home')
 @section('content')
-
     <div class="col-sm-12">
         <!-- Basic Form Inputs card start -->
         <div class="card">
@@ -11,7 +10,15 @@
             </div>
             <div class="card-block">
                 <h4 class="sub-title">CHỈNH SỬA DỰ ÁN</h4>
-                <form action="/projects/{{$project->id}}" method="POST">
+                {{--Trả về lỗi ràng buộc ngày--}}
+                @if (count($errors) > 0)
+                    <ul class="alert alert-danger pl-5">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+                <form action="/projects/{{$project->id}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
@@ -22,23 +29,35 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Thay ảnh</label>
+                        <div class="col-sm-10">
+                            <input class="form-group" type="file" name="image" value="{{ $project->image }}">
+                            <img class="col-sm-10" src="/project_upload/{{ $project->image }}"  />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả dự án</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" name="description"></textarea>
+                            <textarea class="ckeditor form-control" id="editor" name="description" value="{{ $project->description }}">
+{{--                            <img src="{{ $project->description }}" />--}}
+                            </textarea>
+{{--                            <input class="ckeditor form-control" id="editor" name="description" value="{{ $project->description }}" >{{ $project->description }}--}}
+
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-10">
-                            <input min="{{$today}}" required name="start_at" type="date" class="form-control" value="{{ $project->start_at }}">
+                            <input required name="start_at" id="date" type="date" class="form-control" value="{{ $project->start_at }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-10">
-                            <input min="{{$today}}" name="end_at" type="date" class="form-control" value="{{ $project->end_at }}">
+                            <input min="{{$project->start_at}}" id="date" name="end_at" type="date" class="form-control" value="{{ $project->end_at }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -74,24 +93,26 @@
                         <label class="col-sm-2 col-form-label">Thành viên</label>
                         <!-- Hiển thị thành viên đã được thêm và những thành viên chưa được thêm -->
                         <div class="col-sm-10">
+                            {{-- pUsers truy vấn tới bảng pj --}}
                             <select name="users->user_id" class="js-example-basic-multiple col-sm-12 select2-hidden-accessible" multiple="" tabindex="-1" aria-hidden="true">
-                                @foreach($users as $usr)
-                                    @if($usr->role == 2)
-                                        @foreach($pUsers as $ePUser)
-                                            @if($usr->id == $ePUser->user_id && $ePUser->project_id == $project->id)
-                                                <option value="{{ $usr->id }}" selected>{{ $usr->name }}</option>
-                                            @else
-                                                <option value="{{ $usr->id }}">{{ $usr->name }}</option>
-                                            @endif
-                                        @endforeach
+
+                                @foreach($empU as $usr)
+                                    @if($usr->project_id == $project->id)
+                                            <option value="{{ $usr->id }}" selected>{{ $usr->name }}</option>
+                                    @endif
+                                    @if($usr->project_id == '')
+                                        @if($usr->role == 2)
+                                            <option value="{{ $usr->id }}">{{ $usr->name }}</option>
+                                        @endif
                                     @endif
                                 @endforeach
+
                             </select>
                         </div>
                     </div>
 
-                    <div  class="d-flex">
-                        <button type="submit" class="btn btn-success float-right btn-round">Cập nhật</button>
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-success float-right btn-round">Cập nhật</button>
                         &nbsp;&nbsp;<a href="{{route('projects.index')}}" class="btn btn-warning float-right btn-round">Quay lại</a>
                     </div>
                 </form>
@@ -99,5 +120,7 @@
         </div>
 
     </div>
+
 @include('Notification')
+
 @endsection

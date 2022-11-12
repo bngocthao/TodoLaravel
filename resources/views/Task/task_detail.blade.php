@@ -62,9 +62,9 @@
                                 @if($task->status == '1')
                                     <td class="text-right">Đang tiến hành</td>
                                 @elseif($task->status == '2')
-                                    <td class="text-right">Dừng</td>
+                                    <td class="text-right">Hoàn thành</td>
                                 @elseif($task->status == '3')
-                                    <td class="text-right">Hoàn tất</td>
+                                    <td class="text-right">Dừng</td>
                                 @elseif($task->status == '4')
                                     <td class="text-right">Đúng hạn</td>
                                 @else()

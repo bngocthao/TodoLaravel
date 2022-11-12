@@ -10,6 +10,14 @@
 
             </div>
             <div class="card-block">
+
+                <?php if(count($errors) > 0): ?>
+                    <ul class="alert alert-danger pl-5">
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+                <?php endif; ?>
                 <h4 class="sub-title">THÊM CÔNG VIỆC MỚI</h4>
                 <form action="<?php echo e(route('tasks.store')); ?>" method="POST">
                     <?php echo csrf_field(); ?>
@@ -23,21 +31,21 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả công việc</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" name="description"></textarea>
+                            <textarea class="ckeditor form-control" id="editor" name="description"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-10">
-                            <input required name="start_at" type="date" id="#dropper-animation" class="form-control">
+                            <input required name="start_at" min="<?php echo e($today); ?>" type="date" id="#dropper-animation" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-10">
-                            <input name="end_at" type="date" id="#dropper-animation" class="form-control">
+                            <input required name="end_at" type="date" id="#dropper-animation" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">

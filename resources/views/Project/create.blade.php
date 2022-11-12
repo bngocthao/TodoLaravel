@@ -1,5 +1,11 @@
 @extends('home')
 @section('content')
+    <style>
+        form .error {
+            color: #ff0000;
+        }
+    </style>
+
     <div class="col-sm-12">
         <!-- Basic Form Inputs card start -->
         <div class="card">
@@ -11,34 +17,50 @@
             </div>
 
             <div class="card-block">
+                {{--Trả về lỗi ràng buộc ngày--}}
+                @if (count($errors) > 0)
+                    <ul class="alert alert-danger pl-5">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 <h4 class="sub-title">THÊM MỚI DỰ ÁN</h4>
-                <form action="{{route('projects.store')}}" method="POST">
+                <form action="{{route('projects.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Tên dự án</label>
                         <div class="col-sm-10">
-                            <input required name="nameProject" type="text" class="form-control" placeholder="Điền tên dự án">
+                            <input required name="nameProject" type="text" class="form-control" id="search" placeholder="Điền tên dự án">
+                            <span id="error_name"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Ảnh (nếu có)</label>
+                        <div class="col-sm-10">
+                            <input class="form-group" type="file" name="image">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả dự án</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" name="description"></textarea>
+                            <textarea class="form-control" id="editor" name="description"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-10">
-                            <input min="{{$today}}" name="start_at" type="date" class="form-control">
+                            <input min="{{$today}}" name="start_at" type="date" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-10">
-                            <input min="{{$today}}" name="end_at" type="date" class="form-control">
+                            <input min="{{$today}}" name="end_at" type="date" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -71,9 +93,11 @@
                         <label class="col-sm-2 col-form-label">Thành viên</label>
                         <div class="col-sm-10">
                             <select name="users->user_id" class="js-example-basic-multiple col-sm-12 select2-hidden-accessible" multiple="" tabindex="-1" aria-hidden="true">
-                                @foreach($users as $usr)
-                                    @if($usr->role == 2)
-                                        <option value="{{ $usr->id }}">{{ $usr->name }}</option>
+                                @foreach($empU as $usr)
+                                    @if($usr->project_id == '')
+                                        @if($usr->role == 2)
+                                            <option value="{{ $usr->id }}">{{ $usr->name }}</option>
+                                        @endif
                                     @endif
                                 @endforeach
                             </select>
@@ -81,12 +105,46 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-info float-right btn-round">Thêm</button>
+                        <button type="submit" id="btn_confirm" class="btn btn-info float-right btn-round">Thêm</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     @include('Notification')
+    <script>
+        $(document).ready(function (){
+           $('#search').blur(function (){
+             var err_name = '';
+             var nameProject = $('#search').val();
+             var _token = $('input[name="_token"]').val();
+
+             if(nameProject == '')
+             {
+                $('#error').addClass('has-error');
+                $('#error_name').html('<lable class="text-danger">Tên dự án đang trống</lable>')
+             }else{
+                $.ajax({
+                   url: "{{route('project.checkName')}}",
+                   method: "POST",
+                   data: {nameProject: nameProject, _token: _token},
+                   success:function (result)
+                   {
+                       if(result == 'unique')
+                       {
+                           $('#error_name').html('<lable class="text-success">Tên hợp lệ</lable>');
+                           $('#search').removeClass('has-error');
+                           $('#btn_confirm').attr('disabled', false)
+                       }else{
+                           $('#error_name').html('<lable class="text-danger">Đã tồn tại</lable>');
+                           $('#search').addClass('has-error');
+                           $('#btn_confirm').attr('disabled', 'disabled')
+                       }
+                   }
+                });
+             }
+
+           });
+        });
+    </script>
 @endsection

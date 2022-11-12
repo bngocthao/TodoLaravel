@@ -48,6 +48,7 @@ class TaskServices
     {
         $projects = Project::all();
         $task_list = Task::where('status',TaskStatus::On)->get();
+        $task_list = Task::all();
 
         $doneTask = Task::where('status',TaskStatus::Complete)->count();
         $doneProject = Project::where('status',ProjectStatus::Complete)->count();
@@ -78,13 +79,15 @@ class TaskServices
         $numberOfTask = $this->countTask();
 
         $users = User::all();
+        $today = date('Y-m-d');
         $context = [
             'project_list' => $project_list,
             'numberOfProject' => $numberOfProject,
             'numberOfTask' => $numberOfTask,
             'doneTask' =>$doneTask,
             'doneProject' => $doneProject,
-            'users' => $users
+            'users' => $users,
+            'today' => $today,
         ];
         return $context;
     }

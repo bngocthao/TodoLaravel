@@ -19,7 +19,7 @@
                                         <table id="simpletable" class="table table-striped table-bordered nowrap dataTable" role="grid" aria-describedby="simpletable_info">
                                             <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;">Dự án</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;"></th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;">Tên công việc</th>
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 185.5px;">Mô tả công việc</th>
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 84.5px;">Ngày bắt đầu</th>
@@ -33,15 +33,22 @@
                                             @foreach($task_list as $item)
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">
-                                                        <span class="badge bg-primary">
-                                                            {{ $item->project->nameProject ?? 'None' }}
-                                                        </span>
+{{--                                                        <div class="form-check col-xs-4 col-sm-3 col-md-2 col-md-offset-2">--}}
+                                                        <div class="form-check col-lg">
+{{--                                                        <input class="form-check-input col-lg float-end" type="checkbox"--}}
+{{--                                                                   value="{{ $item->status ?? 'Lỗi' }}" id="flexCheckIndeterminate" >--}}
+                                                            <input class="form-check-input col-lg float-end" type="checkbox" id="flexCheckIndeterminate"
+                                                                   onchange="alert(this.checked); if(this.checked) this.value='true'; else this.value='false';">
+{{--                                                            <input type="checkbox" value="false" onchange="alert(this.checked); if(this.checked) this.value='true'; else this.value='false';" />--}}
+{{--                                                            <label class="form-check-label" for="flexCheckIndeterminate">--}}
+{{--                                                            </label>--}}
+                                                        </div>
                                                     </td>
                                                     <td class="sorting_1">{{ $item->taskName }}</td>
-                                                    <td>{{ $item -> description }}</td>
-                                                    <td>{{ $item -> start_at }}</td>
-                                                    <td>{{ $item -> end_at }}</td>
-                                                    @if($item->status == \App\Enums\TaskStatus::On)
+                                                    <td>{!! $item -> description !!}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($item -> start_at)->format('d/m/Y')}}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($item -> end_at)->format('d/m/Y')}}</td>
+                                                @if($item->status == \App\Enums\TaskStatus::On)
                                                         <td>
                                                             <span class="badge bg-success">Đang mở</span>
                                                         </td>
@@ -96,5 +103,9 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+    </script>
     @include('Notification')
 @endsection

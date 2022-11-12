@@ -1,6 +1,7 @@
 <?php echo $__env->make('chatbot', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
+
 <script type="text/javascript" src="\template\files\bower_components\jquery\js\jquery.min.js"></script>
 <script type="text/javascript" src="\template\files\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
 <script type="text/javascript" src="\template\files\bower_components\popper.js\js\popper.min.js"></script>
@@ -20,7 +21,8 @@
 <script src="\template\files\assets\js\pcoded.min.js"></script>
 <!-- custom js -->
 <script src="\template\files\assets\js\vartical-layout.min.js"></script>
-<script type="text/javascript" src="\template\files\assets\pages\dashboard\custom-dashboard.js"></script>
+
+
 <script type="text/javascript" src="\template\files\assets\js\script.min.js"></script>
 <script src="\template\files\assets\pages\data-table\js\data-table-custom.js"></script>
 <script type="text/javascript" src="\template\files\assets\pages\advance-elements\select2-custom.js"></script>
@@ -54,18 +56,40 @@
 
 
 
+
+
 <!-- Custotm -->
 <script type="text/javascript" src="\template\files\assets\pages\todo\todo.js"></script>
 
-<!-- CK editor -->
-<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script><script type="text/javascript">
-    $(document).ready(function () {
-        $('.ckeditor').ckeditor();
-    });
 
+
+<script type="text/javascript" src="\template\files\ckeditor5-build-classic\ckeditor.js"></script>
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+            // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            //image upload
+            // ckfinder: {
+            //     uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+            // }
+        } )
+        .then( editor => {
+            window.editor = editor;
+        } )
+        .catch( err => {
+            console.error( err.stack );
+        } );
 </script>
+
+
 
 <!-- Multiselect js -->
 <script type="text/javascript" src="\template\files\bower_components\bootstrap-multiselect\js\bootstrap-multiselect.js"></script>
 <script type="text/javascript" src="\template\files\bower_components\multiselect\js\jquery.multi-select.js"></script>
-<script type="text/javascript" src="\template\files\assets\js\jquery.quicksearch.js"></script><?php /**PATH E:\Project-Management-Laravel\resources\views/footer.blade.php ENDPATH**/ ?>
+<script type="text/javascript" src="\template\files\assets\js\jquery.quicksearch.js"></script>
+
+
+<script type="text/javascript" src="template\files\bower_components\bootstrap\css\bootstrap.min.css.map"></script>
+
+<?php /**PATH E:\Project-Management-Laravel\resources\views/footer.blade.php ENDPATH**/ ?>

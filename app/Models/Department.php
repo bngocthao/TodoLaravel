@@ -14,7 +14,8 @@ class Department extends Model
         'departmentName',
         'departmentDes',
         'slotAccount',
-        'manager_id'
+        'manager_id',
+        'image',
     ];
 
     public function users(){

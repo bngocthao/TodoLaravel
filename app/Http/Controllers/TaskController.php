@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectTask;
 use App\Repository\Task\TaskRepository;
+use App\Rules\checkDateRule;
+use App\Rules\checkTaskDateRule;
 use Illuminate\Http\Request;
 use App\Services\Task\TaskServices;
 
@@ -29,6 +31,10 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        // ràng buộc ngày
+        $request -> validate([
+            'end_at' => new checkTaskDateRule(),
+        ]);
         // Xử lý dữ liệu
         $create_task = $this->task->store($request->all()); // Repo
         if($create_task){
@@ -53,6 +59,9 @@ class TaskController extends Controller
 
     public function update($id, Request $request)
     {
+        $request->validate([
+            'end_at' => new checkDateRule(),
+        ]);
         $update = $this->task->update($id,$request->all());
         if($update){
             return back()->with('success', 'Đã cập nhật công việc!');

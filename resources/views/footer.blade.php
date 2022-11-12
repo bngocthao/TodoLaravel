@@ -1,5 +1,6 @@
 @include('chatbot')
 
+
 {{--<script data-cfasync="false" src="..\..\..\cdn-cgi\scripts\5c5dd728\cloudflare-static\email-decode.min.js"></script>--}}
 <script type="text/javascript" src="\template\files\bower_components\jquery\js\jquery.min.js"></script>
 <script type="text/javascript" src="\template\files\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
@@ -20,7 +21,8 @@
 <script src="\template\files\assets\js\pcoded.min.js"></script>
 <!-- custom js -->
 <script src="\template\files\assets\js\vartical-layout.min.js"></script>
-<script type="text/javascript" src="\template\files\assets\pages\dashboard\custom-dashboard.js"></script>
+{{--có lỗi thì mở nó ra--}}
+{{--<script type="text/javascript" src="\template\files\assets\pages\dashboard\custom-dashboard.js"></script>--}}
 <script type="text/javascript" src="\template\files\assets\js\script.min.js"></script>
 <script src="\template\files\assets\pages\data-table\js\data-table-custom.js"></script>
 <script type="text/javascript" src="\template\files\assets\pages\advance-elements\select2-custom.js"></script>
@@ -48,6 +50,8 @@
 <script src="\template\files\assets\pages\filer\custom-filer.js" type="text/javascript"></script>
 <script src="\template\files\assets\pages\filer\jquery.fileuploads.init.js" type="text/javascript"></script>
 
+
+
 {{--<script>--}}
 {{--    $(document).ready(function() {--}}
 {{--        $('.js-example-basic-multiple').select2();--}}
@@ -57,15 +61,34 @@
 <!-- Custotm -->
 <script type="text/javascript" src="\template\files\assets\pages\todo\todo.js"></script>
 
-<!-- CK editor -->
-<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script><script type="text/javascript">
-    $(document).ready(function () {
-        $('.ckeditor').ckeditor();
-    });
+{{--</script>--}}
+{{--<script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>--}}
+<script type="text/javascript" src="\template\files\ckeditor5-build-classic\ckeditor.js"></script>
 
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+            // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            //image upload
+            // ckfinder: {
+            //     uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+            // }
+        } )
+        .then( editor => {
+            window.editor = editor;
+        } )
+        .catch( err => {
+            console.error( err.stack );
+        } );
 </script>
 
+{{--jquery--}}
+{{--<script src="\template\files\bower_components\jquery\js\jquery.min.js"></script>--}}
 <!-- Multiselect js -->
 <script type="text/javascript" src="\template\files\bower_components\bootstrap-multiselect\js\bootstrap-multiselect.js"></script>
 <script type="text/javascript" src="\template\files\bower_components\multiselect\js\jquery.multi-select.js"></script>
 <script type="text/javascript" src="\template\files\assets\js\jquery.quicksearch.js"></script>
+
+{{-- test --}}
+<script type="text/javascript" src="template\files\bower_components\bootstrap\css\bootstrap.min.css.map"></script>
+

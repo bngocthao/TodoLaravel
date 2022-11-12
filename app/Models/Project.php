@@ -16,7 +16,8 @@ class Project extends Model
 //        'user_id',
         'start_at',
         'end_at',
-        'status'
+        'status',
+        'image'
     ];
 
     public function users(){

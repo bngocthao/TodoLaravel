@@ -50,3 +50,6 @@ Route::get('/logout',[\App\Http\Controllers\HomeController::class,'logout'])->mi
 Auth::routes(['register'=>false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Ajax Function
+Route::post('/project/checkName',[ProjectController::class, 'checkName'])->name('project.checkName');
