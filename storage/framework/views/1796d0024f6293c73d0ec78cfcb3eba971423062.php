@@ -39,9 +39,11 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả dự án</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" id="editor" name="description" value="<?php echo e($project->description); ?>">
+                            <textarea class="ckeditor form-control" id="editor" name="description">
+                                 <?php echo e($project->description); ?>
 
                             </textarea>
+                            <br>
 
 
                         </div>
@@ -111,9 +113,7 @@
                         </div>
                     </div>
 
-
                     <div class="form-group">
-
                     <button type="submit" class="btn btn-success float-right btn-round">Cập nhật</button>
                         &nbsp;&nbsp;<a href="<?php echo e(route('projects.index')); ?>" class="btn btn-warning float-right btn-round">Quay lại</a>
                     </div>
@@ -122,6 +122,26 @@
         </div>
 
     </div>
+
+    
+    <script type="text/javascript" src="\template\files\ckeditor5-build-classic\ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+                //image upload
+                // ckfinder: {
+                //     uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                // }
+            } )
+            .then( editor => {
+                window.editor = editor;
+            } )
+        .catch( err => {
+            console.error( err.stack );
+        } );
+    </script>
 
 <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 

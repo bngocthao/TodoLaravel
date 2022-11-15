@@ -42,7 +42,9 @@
                                 </div>
                                 <br>
                                 <div class="card-block " style="">
-                                    <img class="col-lg-12" src="/project_upload/<?php echo e($projectsName->image ?? "Trống"); ?>"></img>
+                                    <p class="col-lg-8" >
+                                        <img class="col-lg-12" src="/project_upload/<?php echo e($projectsName->image); ?>"></img>
+                                    </p>
                                 </div>
                                 <div class="card-block " style="">
                                     <p class="col-lg-8" >

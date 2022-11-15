@@ -54,10 +54,6 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'end_at' => new checkDateRule(),
-        ]);
-
         $storeP = $this->project->store($request->all());
 
         if ($storeP){

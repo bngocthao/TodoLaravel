@@ -39,10 +39,11 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả dự án</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" id="editor" name="description" value="{{ $project->description }}">
-{{--                            <img src="{{ $project->description }}" />--}}
+                            <textarea class="ckeditor form-control" id="editor" name="description">
+                                 {{ $project->description }}
                             </textarea>
-{{--                            <input class="ckeditor form-control" id="editor" name="description" value="{{ $project->description }}" >{{ $project->description }}--}}
+                            <br>
+{{--                            <input class="ckeditor form-control" id="editor" name="description" value="{{ $project->description }}" >--}}
 
                         </div>
                     </div>
@@ -120,6 +121,26 @@
         </div>
 
     </div>
+
+    {{--Ck editor--}}
+    <script type="text/javascript" src="\template\files\ckeditor5-build-classic\ckeditor.js"></script>
+
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+                //image upload
+                // ckfinder: {
+                //     uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                // }
+            } )
+            .then( editor => {
+                window.editor = editor;
+            } )
+        .catch( err => {
+            console.error( err.stack );
+        } );
+    </script>
 
 @include('Notification')
 

@@ -15,13 +15,13 @@
                             <div id="simpletable_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12">
+                                    <p class="col-xs-12 col-sm-12">
                                         <table id="simpletable" class="table table-striped table-bordered nowrap dataTable" role="grid" aria-describedby="simpletable_info">
                                             <thead>
                                             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;"></th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;">Tên công việc</th>
-                                                <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 185.5px;">Mô tả công việc</th>
+{{--                                                <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 185.5px;">Mô tả công việc</th>--}}
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 84.5px;">Ngày bắt đầu</th>
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 30px;">Ngày kết thúc</th>
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 73px;">Trạng thái</th>
@@ -33,19 +33,27 @@
                                             @foreach($task_list as $item)
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">
-{{--                                                        <div class="form-check col-xs-4 col-sm-3 col-md-2 col-md-offset-2">--}}
+                                                    {{-- Phần checkbox--}}
+
                                                         <div class="form-check col-lg">
-{{--                                                        <input class="form-check-input col-lg float-end" type="checkbox"--}}
-{{--                                                                   value="{{ $item->status ?? 'Lỗi' }}" id="flexCheckIndeterminate" >--}}
-                                                            <input class="form-check-input col-lg float-end" type="checkbox" id="flexCheckIndeterminate"
-                                                                   onchange="alert(this.checked); if(this.checked) this.value='true'; else this.value='false';">
-{{--                                                            <input type="checkbox" value="false" onchange="alert(this.checked); if(this.checked) this.value='true'; else this.value='false';" />--}}
-{{--                                                            <label class="form-check-label" for="flexCheckIndeterminate">--}}
-{{--                                                            </label>--}}
+                                                            {{--Checkbox sẽ lưu id của task, mỗi lần check vào cb jquery sẽ lấy id và ktra --}}
+                                                            {{--xem cb có đang check hay uncheck--}}
+                                                            {{--nếu check thì id = 1--}}
+                                                            {{--uncheck id = 3--}}
+{{--                                                            <input class="form-check-input col-lg float-end"--}}
+{{--                                                                   type="checkbox" id="flexCheckIndeterminate"--}}
+{{--                                                                   name="id"--}}
+{{--                                                                   value="{{$item->id}}"--}}
+{{--                                                                   onchange="if(this.checked) this.value = {!! json_encode($item->id) !!} + 'a'; else this.value= {!! json_encode($item->id) !!} + 'b'; alert(this.value)">--}}
+                                                        <input
+                                                                class="form-check-input col-lg float-end"
+                                                                type="checkbox"
+                                                                id = "idTask"
+                                                                name = "idTask">
                                                         </div>
                                                     </td>
                                                     <td class="sorting_1">{{ $item->taskName }}</td>
-                                                    <td>{!! $item -> description !!}</td>
+{{--                                                    <td>{!! $item -> description !!}</td>--}}
                                                     <td>{{ \Carbon\Carbon::parse($item -> start_at)->format('d/m/Y')}}</td>
                                                     <td>{{ \Carbon\Carbon::parse($item -> end_at)->format('d/m/Y')}}</td>
                                                 @if($item->status == \App\Enums\TaskStatus::On)
@@ -104,8 +112,50 @@
         </div>
     </div>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
+{{-- Ajax của checkbox--}}
+
+    $(document).ready(function (){
+        $('#idTask').blur(function (){
+            var id = $('#idTask').val();
+            console.log(id);
+        });
+});
+
+    {{--$(document).ready(function () {--}}
+    {{--        $(".status").onchange(function () {--}}
+    {{--            var id = $(this).val();--}}
+    {{--            // var _token = $('input[name="_token"]').val();--}}
+    {{--            var info = { id: id};--}}
+
+    {{--            // $("#task_id").each(function (){--}}
+    {{--            //     if(this.checked) {--}}
+    {{--            //         id.push($(this).val());--}}
+    {{--            //     }--}}
+    {{--            // });--}}
+    {{--            // id = id.toString();--}}
+    {{--            // console.log(id);--}}
+
+    {{--            console.log(id);--}}
+
+    {{--            --}}{{--$.ajax({--}}
+    {{--            --}}{{--    type: "POST",--}}
+    {{--            --}}{{--    url: "{{route('task.changeStatus')}}",--}}
+    {{--            --}}{{--    data: info,--}}
+
+    {{--            --}}{{--    success:function (response)--}}
+    {{--            --}}{{--    {--}}
+    {{--            --}}{{--        alert("Chúc mừng, bạn đã hoàn thành công việc!");--}}
+    {{--            --}}{{--    }--}}
+
+    {{--            --}}{{--});--}}
+    {{--        })});--}}
+
 
     </script>
+
+{{--    <script src="\template\files\bower_components\jquery\js\jquery.min.js"></script>--}}
+{{--    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>--}}
     @include('Notification')
 @endsection

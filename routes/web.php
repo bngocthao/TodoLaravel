@@ -53,3 +53,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Ajax Function
 Route::post('/project/checkName',[ProjectController::class, 'checkName'])->name('project.checkName');
+Route::post('/task/changeStatus', [TaskController::class, 'changeStatus'])->name('task.changeStatus');

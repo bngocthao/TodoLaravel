@@ -19,7 +19,7 @@
                     </ul>
                 <?php endif; ?>
                 <h4 class="sub-title">THÊM CÔNG VIỆC MỚI</h4>
-                <form action="<?php echo e(route('tasks.store')); ?>" method="POST">
+                <form action="<?php echo e(route('tasks.store')); ?>" method="POST" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Tên công việc</label>
@@ -31,7 +31,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả công việc</label>
                         <div class="col-sm-10">
-                            <textarea class="ckeditor form-control" id="editor" name="description"></textarea>
+                            <textarea class="form-control" id="editor" name="description"></textarea>
                         </div>
                     </div>
 
@@ -108,6 +108,23 @@
         </div>
     </div>
 
+    
+    <script type="text/javascript" src="\template\files\ckeditor5-build-classic\ckeditor.js";></script>
+
+
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+                toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+                //image upload
+                // ckfinder: {
+                //     uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                // }
+            } )
+            .then( editor => {
+                window.editor = editor;
+            } )
+    </script>
     <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 

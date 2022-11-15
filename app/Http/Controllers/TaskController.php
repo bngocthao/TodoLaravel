@@ -57,15 +57,18 @@ class TaskController extends Controller
         return view("Task.update",$getViewEdit);
     }
 
+    public function changeStatus(Request $request){
+        $this->task->changeStatus($request);
+    }
+
     public function update($id, Request $request)
     {
-        $request->validate([
-            'end_at' => new checkDateRule(),
-        ]);
+
         $update = $this->task->update($id,$request->all());
         if($update){
             return back()->with('success', 'Đã cập nhật công việc!');
-        }
+        }else
+            return back()->with('error', 'Cập nhật công việc thất bại!');
     }
 
     public function destroy($id)

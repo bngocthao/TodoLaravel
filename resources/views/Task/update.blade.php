@@ -19,7 +19,7 @@
                         @endforeach
                     </ul>
                 @endif
-                <form action="/task/{{$tasks->id}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('tasks.update', $tasks)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
@@ -32,21 +32,23 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả công việc</label>
                         <div class="col-sm-10">
-                            <input required name="description" id="editor" type="text" class="form-control" value="{{$tasks->description}}">
+                            <textarea name="description" id="editor" type="text" class="form-control">
+                                {{$tasks->description}}
+                            </textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-10">
-                            <input required name="start_at" type="date" class="form-control" value="{{$tasks->start_at}}">
+                            <input name="start_at" type="date" class="form-control" value="{{$tasks->start_at}}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-10">
-                            <input required name="end_at" type="date" class="form-control" value="{{$tasks->end_at}}">
+                            <input min="{{$tasks->start_at}}" name="end_at" type="date" class="form-control" value="{{$tasks->end_at}}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -83,7 +85,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-
                         <button type="submit" class="btn btn-info float-right btn-round">Cập nhật công việc</button>
                         &nbsp;&nbsp;<a href="{{route('tasks.index')}}" class="btn btn-warning float-right btn-round">Quay lại</a>
                     </div>
@@ -91,6 +92,23 @@
             </div>
         </div>
     </div>
-    <!-- Script notification -->
+    <!-- CK editor -->
+    <script type="text/javascript" src="\template\files\ckeditor5-build-classic\ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+                //image upload
+                // ckfinder: {
+                //     uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                // }
+            } )
+            .then( editor => {
+                window.editor = editor;
+            } )
+            // .catch( err => {
+            //     console.error( err.stack );
+            // } );
+    </script>
     @include('Notification')
 @endsection

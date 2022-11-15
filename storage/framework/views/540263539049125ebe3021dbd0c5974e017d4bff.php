@@ -19,7 +19,7 @@
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 <?php endif; ?>
-                <form action="/task/<?php echo e($tasks->id); ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?php echo e(route('tasks.update', $tasks)); ?>" method="POST" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
                     <?php echo method_field('PUT'); ?>
                     <div class="form-group row">
@@ -32,21 +32,24 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Mô tả công việc</label>
                         <div class="col-sm-10">
-                            <input required name="description" id="editor" type="text" class="form-control" value="<?php echo e($tasks->description); ?>">
+                            <textarea name="description" id="editor" type="text" class="form-control">
+                                <?php echo e($tasks->description); ?>
+
+                            </textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày bắt đầu</label>
                         <div class="col-sm-10">
-                            <input required name="start_at" type="date" class="form-control" value="<?php echo e($tasks->start_at); ?>">
+                            <input name="start_at" type="date" class="form-control" value="<?php echo e($tasks->start_at); ?>">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Ngày kết thúc</label>
                         <div class="col-sm-10">
-                            <input required name="end_at" type="date" class="form-control" value="<?php echo e($tasks->end_at); ?>">
+                            <input min="<?php echo e($tasks->start_at); ?>" name="end_at" type="date" class="form-control" value="<?php echo e($tasks->end_at); ?>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -83,7 +86,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-
                         <button type="submit" class="btn btn-info float-right btn-round">Cập nhật công việc</button>
                         &nbsp;&nbsp;<a href="<?php echo e(route('tasks.index')); ?>" class="btn btn-warning float-right btn-round">Quay lại</a>
                     </div>
@@ -91,7 +93,24 @@
             </div>
         </div>
     </div>
-    <!-- Script notification -->
+    <!-- CK editor -->
+    <script type="text/javascript" src="\template\files\ckeditor5-build-classic\ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+                //image upload
+                // ckfinder: {
+                //     uploadUrl: 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
+                // }
+            } )
+            .then( editor => {
+                window.editor = editor;
+            } )
+            // .catch( err => {
+            //     console.error( err.stack );
+            // } );
+    </script>
     <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 

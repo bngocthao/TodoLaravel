@@ -22,20 +22,20 @@ class ProjectRepository implements ProjectInterface
 
     public function store(array $data)
     {
-        //xử lý ảnh
-        // validate ảnh
-//        $validatedData = $data->validate([
-//            'image' => 'required|image|mimes:jpeg,jpg,png,gif',
-//        ]);
-        // thêm ảnh
-//        dd($data);
-        if($data['image'] != ''){
+        // if $date > now (gt is greater than, gte is greater than or equal, etc)
+        $start_at = Carbon::parse($data['start_at']);
+        $end_at = Carbon::parse($data['end_at']);
+        if($start_at->gt($end_at)){
+            return back()->with('error', 'Ngày bắt đầu không được lớn hơn ngày kết thúc');
+        }
+
+            // thêm ảnh
+        if(isset($data['image']) != ''){
             $avatar = $data['image'];
             $avatarName = 'project_'.time().rand(1,1000).'.'.$avatar->extension();
             $avatar->move(public_path('project_upload'), $avatarName);
             $data['image'] = $avatarName;
-//            dd($data['image']);
-        }else $data['image'] = '';
+        }
         // end xử lý ảnh
 
         $pj = Project::create($data);

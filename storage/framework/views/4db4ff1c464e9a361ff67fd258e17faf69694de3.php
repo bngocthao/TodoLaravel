@@ -15,13 +15,13 @@
                             <div id="simpletable_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12">
+                                    <p class="col-xs-12 col-sm-12">
                                         <table id="simpletable" class="table table-striped table-bordered nowrap dataTable" role="grid" aria-describedby="simpletable_info">
                                             <thead>
                                             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;"></th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 112.5px;">Tên công việc</th>
-                                                <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 185.5px;">Mô tả công việc</th>
+
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 84.5px;">Ngày bắt đầu</th>
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 30px;">Ngày kết thúc</th>
                                                 <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" style="width: 73px;">Trạng thái</th>
@@ -33,19 +33,27 @@
                                             <?php $__currentLoopData = $task_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">
+                                                    
 
                                                         <div class="form-check col-lg">
+                                                            
+                                                            
+                                                            
+                                                            
 
 
-                                                            <input class="form-check-input col-lg float-end" type="checkbox" id="flexCheckIndeterminate"
-                                                                   onchange="alert(this.checked); if(this.checked) this.value='true'; else this.value='false';">
 
 
 
+                                                        <input
+                                                                class="form-check-input col-lg float-end"
+                                                                type="checkbox"
+                                                                id = "idTask"
+                                                                name = "idTask">
                                                         </div>
                                                     </td>
                                                     <td class="sorting_1"><?php echo e($item->taskName); ?></td>
-                                                    <td><?php echo $item -> description; ?></td>
+
                                                     <td><?php echo e(\Carbon\Carbon::parse($item -> start_at)->format('d/m/Y')); ?></td>
                                                     <td><?php echo e(\Carbon\Carbon::parse($item -> end_at)->format('d/m/Y')); ?></td>
                                                 <?php if($item->status == \App\Enums\TaskStatus::On): ?>
@@ -104,9 +112,51 @@
         </div>
     </div>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
 
+
+    $(document).ready(function (){
+        $('#idTask').blur(function (){
+            var id = $('#idTask').val();
+            console.log(id);
+        });
+});
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+
+
     </script>
+
+
+
     <?php echo $__env->make('Notification', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 
